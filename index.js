@@ -11,6 +11,7 @@ app.get('/', (req, res) => {
 })
 
 
+app.use(express.json());
 // register user
 app.post('/confirm-id', (req, res) => {
     //  TODO: register
@@ -25,6 +26,7 @@ app.post('/confirm-id', (req, res) => {
 });
 
 
+app.use(express.json());
 app.post('/register', (req, res) => {
     const {fullname,id, address, employmentStatus, incomeBracket, password} = req.body;
 
