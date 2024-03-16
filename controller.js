@@ -1,4 +1,4 @@
-const storage = require('./storage');
+const mockStorage = require('./mockStorage');
 
 
 function verifyID(id) {
@@ -23,8 +23,12 @@ function register(userinfo) {
 
 
 	// TODO: persist userinfo into database
-	storage.createUser(userinfo);
 
+	try {
+		mockStorage.createUser(userinfo);
+	} catch (err) {
+		throw err;
+	}
 	// TODO: error handling
 
 }
@@ -36,20 +40,31 @@ function login(loginBody) {
 	
 	// if password match : return user
 	// else return error
+
+	try {
+		user = mockStorage.getUserByPhonenumber(loginBody.phoneNumber)
+
+		if (user.password == loginBody.password) {
+			return user
+		} else {
+			throw new Error("wrong phone number or password"); 
+		}
+	} catch (err) {
+		throw err;
+	} 
 }
 
 function addMember(  members) {
 	try {
 		members.array.forEach(member => {
-			storage.addMember(member)
+			mockStorage.addMember(member)
 		});
+
+		return {"message": "member(s) successfully added"}
 	} catch (error) {
 		throw error;
 	}
 }
 
-function testCon() {
-	storage.testCon()
-}
 
-module.exports = {verifyID, register, login, addMember, testCon}
+module.exports = {verifyID, register, login, addMember}

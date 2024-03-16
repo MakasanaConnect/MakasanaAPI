@@ -1,4 +1,5 @@
 const express = require('express')
+// const  bodyParser = require('body-parser')
 const app = express()
 const port = 3000
 
@@ -31,7 +32,7 @@ app.post('/register', (req, res) => {
     try {
         // TODO: register controller
 
-        controller.register();
+        controller.register({fullname,id, address, employmentStatus, incomeBracket, password});
 
     } catch (error) {
         // TODO: error handling
@@ -43,10 +44,22 @@ app.post('/register', (req, res) => {
     res.json({"message": "registration successful"});
 });
 
-app.post('login', (req, res) => {
+
+app.use(express.json());
+app.post('/login', (req, res) => {
     // TODO: login user
 
-    const {phoneNumber, password} = req.body;
+    
+
+    try {
+        const body = req.body;
+        user = controller.login(body)
+        res.json(user);
+
+    } catch (err) {
+        console.error(err)
+        res.json({"message": "wrong phone number or password"})
+    }
 
     // login controller
     
@@ -56,7 +69,6 @@ app.post('login', (req, res) => {
 
 
 app.listen(port, () => {
-    controller.testCon()
     console.log(`Example app listening on port ${port}`)
 })
 

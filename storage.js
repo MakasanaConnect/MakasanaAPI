@@ -1,4 +1,3 @@
-const sql = require("msnodesqlv8");
 
 const connectionString =
   "Driver={SQL Server};Server=tcp:ukukhulaserver.database.windows.net,1433;Database=MakasanaDB;Uid=bbdadmin;Pwd=password@1234;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30";
@@ -8,10 +7,10 @@ async function testCon() {
 
   sql.query(connectionString, query, (err, rows) => {
     if (err) {
-      console.log(err);
-    } else {
-      console.log(rows);
-    }
+		throw err;
+	} else {
+		return rows
+	}
   });
 }
 
