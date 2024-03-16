@@ -1,70 +1,79 @@
-const mockStorage = require('./mockStorage');
+const storage = require('./mockStorage');
 
-
-function verifyID(id) {
-	// TODO : contact home affairs api for id confirmation
-
-	return {
-		'full_name': 'Karabo Doe',
-		'address': {
-			'building': '55',
-			'street': 'John Cena St.',
-			'city': 'Orlando West',
-			'province': 'Gauteng'
-		},
-		'phone_number': '08976473272',
-		'id': id
-	}
-}
-
-
-function register(userinfo) {
-	// TODO: check if phone is already in use.
-
-
-	// TODO: persist userinfo into database
-
+function logRequest(log, uid) {
+	// create request log
 	try {
-		mockStorage.createUser(userinfo);
+		storage.logRequest(log, uid);
 	} catch (err) {
 		throw err;
 	}
-	// TODO: error handling
-
 }
 
-function login(loginBody) {
-	//TODO: get user from database with email
-	
-	// compare password
-	
-	// if password match : return user
-	// else return error
-
+function getAllRequestLogs(location) {
 	try {
-		user = mockStorage.getUserByPhonenumber(loginBody.phoneNumber)
+		// get all request logs with location
+		requestLogs = storage.getAllRequestLogs(location);
+		return requestLogs;
 
-		if (user.password == loginBody.password) {
-			return user
-		} else {
-			throw new Error("wrong phone number or password"); 
-		}
 	} catch (err) {
 		throw err;
-	} 
+	}
 }
 
-function addMember(  members) {
+function searchServiceProviders(serviceQuery) {
+	// get all service providers by service
 	try {
-		members.array.forEach(member => {
-			mockStorage.addMember(member)
-		});
+		let serviceProviders = storage.getServiceProviders(serviceQuery);
+		return serviceProviders;
+	} catch(err) {
+		throw err;
+	}
+}
 
-		return {"message": "member(s) successfully added"}
-	} catch (error) {
-		throw error;
+function getServiceProvider(providerID) {
+	// get service provider by ID
+	try {
+		let serviceProvider = storage.getServiceProvider(providerID);
+		return serviceProvider;
+	} catch (err) {
+		throw err;
+	}
+}
+
+function createJobRequest(job, providerID) {
+	// hire service provider
+	try {
+		storage.createJobRequest(providerID, job);
+	} catch (err) {
+		throw err;
+	}
+}
+
+function acceptJob(jobID) {
+	// accept job request
+	try {
+		storage.acceptJob(jobID)
+	} catch (err) {
+		throw err;
 	}
 }
 
 
-module.exports = {verifyID, register, login, addMember}
+function declineJob(jobID) {
+	// decline job request
+	try {
+		storage.declineJob(jobID);
+	} catch (err) {
+		throw err;
+	}
+}
+
+module.exports = {
+	logRequest,
+	getAllRequestLogs,
+	searchServiceProviders,
+	getServiceProvider,
+	createJobRequest,
+	declineJob,
+	acceptJob
+}
