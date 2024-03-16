@@ -1,0 +1,11 @@
+{
+  "name": "makasanaapi",
+  "version": "1.0.0",
+  "description": "Driver={SQL Server};Server=tcp:ukukhulaserver.database.windows.net,1433;Database=MakasanaDB;Uid=bbdadmin;Pwd={your_password_here};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
