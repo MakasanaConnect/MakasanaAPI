@@ -53,9 +53,10 @@ app.post('login', (req, res) => {
 });
 
 
-controller.testCon()
+
 
 app.listen(port, () => {
+    controller.testCon()
     console.log(`Example app listening on port ${port}`)
 })
 
