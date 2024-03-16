@@ -1,5 +1,19 @@
+const sql = require("msnodesqlv8");
+
+const connectionString = "Driver={SQL Server};Server=tcp:ukukhulaserver.database.windows.net,1433;Database=MakasanaDB;Uid=bbdadmin;Pwd={your_password_here};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30";
+
+
+function testCon() {
+	query = "select * from [dbo].[users]"
+		
+	sql.query(connectionString, query, (err, rows) => {
+		console.log(rows);
+	});
+}
+
 function createUser(userinfo) {
 	// TODO: create user
+
 }
 
 
@@ -17,4 +31,4 @@ function addMember(member) {
 
 }
 
-module.exports = {createUser, addMember}
+module.exports = {createUser, addMember, testCon}

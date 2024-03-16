@@ -48,4 +48,8 @@ function addMember(  members) {
 	}
 }
 
-module.exports = {verifyID, register, login, addMember}
+function testCon() {
+	storage.testCon()
+}
+
+module.exports = {verifyID, register, login, addMember, testCon}
